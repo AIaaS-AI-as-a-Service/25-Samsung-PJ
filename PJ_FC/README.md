@@ -23,7 +23,6 @@
 
 #### 데이터셋 특징
 - **소스**: NASA Prognostics Center of Excellence
-- **다운로드**: https://phm-datasets.s3.amazonaws.com/NASA/
 - **데이터 형태**: 항공기 터보팬 엔진의 Run-to-Failure 시뮬레이션 데이터
 - **센서 개수**: 21개 (온도, 압력, 회전속도 등)
 - **운영 설정**: 3개 (고도, 속도, 스로틀)
