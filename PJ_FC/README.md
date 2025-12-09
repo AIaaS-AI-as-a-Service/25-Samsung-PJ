@@ -17,31 +17,40 @@
 
 ## 데이터셋 정보
 
-### PHM 데이터셋 (Prognostics and Health Management)
+### NASA Turbofan Engine Degradation (C-MAPSS) 데이터셋
 
-PHM 데이터셋은 NASA나 IEEE PHM Conference에서 제공하는 산업 장비의 센서 데이터로, 주로 다음과 같은 특징을 가집니다:
+본 프로젝트에서는 NASA Prognostics Center of Excellence에서 제공하는 **C-MAPSS (Commercial Modular Aero-Propulsion System Simulation)** 데이터셋을 사용합니다.
 
-#### 데이터 구조
-- **센서 종류**: 온도, 압력, 진동, 회전속도 등 다수의 센서
-- **시계열 데이터**: 시간에 따라 측정된 연속적인 센서 값
-- **고장 유형**: Normal, Fault Type 1, Fault Type 2, ... 등 여러 종류의 고장 라벨
+#### 데이터셋 특징
+- **소스**: NASA Prognostics Center of Excellence
+- **다운로드**: https://phm-datasets.s3.amazonaws.com/NASA/
+- **데이터 형태**: 항공기 터보팬 엔진의 Run-to-Failure 시뮬레이션 데이터
+- **센서 개수**: 21개 (온도, 압력, 회전속도 등)
+- **운영 설정**: 3개 (고도, 속도, 스로틀)
+- **학습 데이터**: 20,631개 샘플 (100개 엔진)
+- **테스트 데이터**: 13,096개 샘플 (100개 엔진)
 
-#### 일반적인 데이터 형태
+#### 고장 유형 분류
+RUL (Remaining Useful Life) 기반으로 4가지 고장 단계로 분류:
+- **0: Normal** - RUL > 100 cycles (정상 운영)
+- **1: Early Degradation** - 50 < RUL ≤ 100 (초기 열화)
+- **2: Advanced Degradation** - 20 < RUL ≤ 50 (진행된 열화)
+- **3: Critical** - RUL ≤ 20 (임계 상태)
+
+#### 데이터 구조 예시
 ```
-timestamp, sensor_1, sensor_2, sensor_3, ..., sensor_n, fault_label
-0,         23.5,     1.2,      45.3,     ..., 0.89,     0 (Normal)
-1,         23.7,     1.3,      45.1,     ..., 0.91,     0 (Normal)
+unit_id, time_cycles, op_setting_1, op_setting_2, op_setting_3, sensor_1, ..., sensor_21, RUL, fault_type
+1,       1,           -0.0007,      -0.0004,      100.0,        518.67,   ..., 23.4190,   191, 0
+1,       2,           0.0019,       -0.0003,      100.0,        518.67,   ..., 23.4236,   190, 0
 ...
-1000,      28.2,     2.1,      52.3,     ..., 1.45,     1 (Fault Type 1)
+1,       190,         0.0023,       -0.0001,      100.0,        518.67,   ..., 23.5123,   1,   3
 ```
 
-### PHM 데이터셋 소스
-
-**PHM Society Data Challenge**
-- 연례 데이터 챌린지에서 제공하는 산업 장비 센서 데이터
-- 다양한 고장 유형과 정상 상태 데이터 포함
-- 시계열 다변량 센서 데이터 (온도, 압력, 진동, 회전속도 등)
-- URL: https://phmsociety.org/phm_competition/
+#### 포함된 데이터셋
+- **FD001**: 1개 운영 조건, 1개 고장 모드 (현재 프로젝트에서 사용)
+- **FD002**: 6개 운영 조건, 1개 고장 모드
+- **FD003**: 1개 운영 조건, 2개 고장 모드
+- **FD004**: 6개 운영 조건, 2개 고장 모드
 
 ## 접근 방식
 
