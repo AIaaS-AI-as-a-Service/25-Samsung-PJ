@@ -1,5 +1,2 @@
-# 프로젝트 개요
-
----
-
-
+# 25-Samsung-PJ
+25y samsung project directory
